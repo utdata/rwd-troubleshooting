@@ -1,0 +1,97 @@
+---
+title: "Troubleshooting Workshop"
+author: "Christian Staal Bruun Overgaard"
+date: "Fall, 2022"
+output: html_document
+---
+
+## Import data
+
+What's wrong? Three things.
+
+```{r import}
+sw <- read_csv(https://raw.githubusercontent.com/cstaal88/tutorials/ec0748214109e4a31991332a85d84ccba78d06f6/star_wars_characters.csv
+```
+
+Google this: R Error: unexpected '/' in
+
+
+### Remember to import libraries
+
+```{r import_again}
+library(tidyverse)
+library(jainitor)
+```
+
+## Clean names
+
+(What's wrong here? 3 issues!)
+
+```{r clean_names}
+sw-clean <- sw |> clean_names())
+```
+
+Google this: R could not find function
+
+
+## Glimpse
+
+```{r glimpse}
+glimpse(sw-clean) #what's wrong?
+```
+
+
+## Select certain variables
+
+```{r select}
+sw_birthday_species <- sw_clean
+  |> Select(name, birthday, species) #
+```
+
+(Hint for cell above: Which line? Capital s?)
+
+## Filtering
+
+(Spot 3 mistakes)
+
+```{r filter}
+sw_clean |> filter(species = human) 
+```
+
+```{r filter2}
+sw_clean |> filter(hair color == "bronw") # what's wrong?
+
+sw_clean |> filter(hair_color == "bronw") # 0 rows? why?
+```
+
+## Multiple pipes
+
+Find the frequency of each eye color.
+
+```{r}
+sw_clean |> # and then ...
+  group_by(eye_color) 
+  |> summarize(total = n() |> #TWO issues here
+  arrange(desc(total))
+```
+
+### Solution with comments
+
+```{r}
+sw_clean |> # and then ...
+  group_by(eye_color) |> # group by eye color
+  summarize(total = n()) |> # make new variable called "total"
+  arrange(desc(total)) #sort in descending order
+```
+
+## More resources to check out
+
+Reporting with Data in R textbook:
+
+* Chapter 14 in (Troubleshooting)
+* Chapter 13 (R Functions)
+
+## More tips:
+
+* Write beautiful code
+* Comment out things that didn't work
